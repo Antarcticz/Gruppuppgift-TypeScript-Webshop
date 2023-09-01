@@ -1,0 +1,14 @@
+.ask-form-container {
+    margin: auto;
+    margin-top: 2rem;
+    width: 75%;
+    height: 30rem;
+    background-color: rgb(125, 141, 135);
+    border-radius: 0.3rem;
+    padding: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
