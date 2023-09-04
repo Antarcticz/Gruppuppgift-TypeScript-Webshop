@@ -1,21 +1,14 @@
-import { PropsWithChildren } from "react";
+import React from 'react'
 
-interface CardProps extends PropsWithChildren {
-    backgroundColor: string;
-    color: string;
-    elevated?: boolean
+interface props {
+    product: Product;
 }
 
-const Card = (props: CardProps) => {
-    return <div
-        style={{
-            backgroundColor: props.backgroundColor,
-            color: props.color,
-            boxShadow: props.elevated ? '2px 2px 5px #00000020' : undefined,
-            padding: '1rem'
-        }}
-    >
-        {props.children}
+const Card: React.FC<props> = ({ product }) => {
+    return <div>
+        <p>
+            {product.productName}
+        </p>
     </div>
 }
 
