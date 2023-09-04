@@ -1,29 +1,20 @@
-import Card from "./components/Card";
-import Text from "./components/Text";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AskForm from './Pages/AskForm/AskForm'
+import Home from './Pages/Home/Home'
+import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer';
 
-function App() {
-    return (
-        <div className='App'>
-            <Card
-                backgroundColor='#303030'
-                color="#fff"
-                elevated
-            >
-                <p>Hello World</p>
-            </Card>
-            <Text
-                highlightedWord="ipsum"
-                style={{
-                    color: "blue"
-                }}
-                onClickHiglightedWord={() => {
-                    alert(`Highlighted word is ipsum`)
-                }}
-            >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum voluptate dolorem explicabo non magni fugit, ut rerum error. Aperiam ab repudiandae soluta, illum adipisci nesciunt expedita iste! Nesciunt, animi tempore!
-            </Text>
-        </div>
-    );
+
+export default function App() {
+  return (
+    <div>
+      <Header />
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/ask" element={<AskForm />} />
+          <Route path="/login" element={<AskForm />} />
+        </Routes>
+      <Footer/>
+    </div>
+  );
 }
-
-export default App;
