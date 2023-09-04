@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Home.css'
 import productsService from '../../store/products/productService'
 import Card from '../../components/Card'
 
-const productList: Product[] = []
 const Home = () => {
+  const [productList, setProductList] = useState<Product[]>([]);
+
   useEffect(() => {
     async function fetchProducts() {
       try {
         const productsData = await productsService.getProduct()
         console.log(productsData)
-        productsData.forEach(product => {
-          productList.push(product)
-        })
+        setProductList(productsData)
 
       } catch (error) {
 

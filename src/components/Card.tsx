@@ -5,6 +5,8 @@ interface props {
 }
 
 const Card: React.FC<props> = ({ product }) => {
+    console.log('from card')
+    console.log(product)
     return <div>
         <p>
             {product.productName}
