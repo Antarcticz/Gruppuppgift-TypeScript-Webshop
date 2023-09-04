@@ -3,11 +3,12 @@ import AskForm from './Pages/AskForm/AskForm'
 import Home from './Pages/Home/Home'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer';
-import Add from './Pages/Add/add';
+import Add from './Pages/Add/Add';
 
 
 export default function App() {
   return (
+    
     <div>
       <Header />
         <Routes>
