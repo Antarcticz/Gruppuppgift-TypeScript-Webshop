@@ -2,6 +2,7 @@ import './AskForm.css';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import threadsService from '../../Forum/threads/threadService';
+// import { Link } from 'react-router-dom';
 
 
 interface Thread {
