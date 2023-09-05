@@ -1,10 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Home.css'
+import formData from '../AskForm/AskForm'
+import initialFormData from '../AskForm/AskForm'
 
-const Home = () => {
+interface Thread {
+  id: number;
+  title: string;
+  category: string;
+  creationDate: string;
+  description: string;
+}
+
+
+
+const Home: React.FC = () => {
+  
+  const [formData, setFormData] = useState<Thread[]>([]);
+
   return (
     <div>
-        <h1>Home</h1>
+        { 
+
+
+        // formData.map((data) => {
+        //   <div>
+        //     { data.title}
+        //   </div>
+        // })
+        
+         
+        // //   formData.map((data) => (
+        // //   <div className='card' key={data.id}>
+        // //     { data.title } {  }
+        // //   </div>
+        // // )) 
+
+        
+        }
     </div>
   )
 }
