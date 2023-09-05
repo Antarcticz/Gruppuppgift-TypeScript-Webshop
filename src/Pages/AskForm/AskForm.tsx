@@ -12,10 +12,6 @@ interface Thread {
 
 const AskForm: React.FC = () => {
 
-  // const [formData, setFormData] = useState<Thread[]>([
-  //   { id: 0, title: 'Hej', category: 'Hej', creationDate: 'Idag', description: 'Hej' }
-  // ])
-
   const initialFormData: Thread = {
     title: '',
     category: '',
