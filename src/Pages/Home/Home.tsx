@@ -1,42 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Home.css'
-import formData from '../AskForm/AskForm'
-import initialFormData from '../AskForm/AskForm'
+import productsService from '../../store/products/productService'
+import Card from '../../components/Card'
 
-interface Thread {
-  id: number;
-  title: string;
-  category: string;
-  creationDate: string;
-  description: string;
-}
+const Home = () => {
+  const [productList, setProductList] = useState<Product[]>([]);
 
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const productsData = await productsService.getProduct()
+        console.log(productsData)
+        setProductList(productsData)
 
+      } catch (error) {
 
-const Home: React.FC = () => {
-  
-  const [formData, setFormData] = useState<Thread[]>([]);
-
+      }
+    }
+    fetchProducts()
+  }, [])
   return (
     <div>
-        { 
-
-
-        // formData.map((data) => {
-        //   <div>
-        //     { data.title}
-        //   </div>
-        // })
-        
-         
-        // //   formData.map((data) => (
-        // //   <div className='card' key={data.id}>
-        // //     { data.title } {  }
-        // //   </div>
-        // // )) 
-
-        
-        }
+      <h1>Home</h1>
+      {
+        productList.length > 0
+          ? productList.map(product => <Card key={product.id} product={product} />)
+          : <h2>No products to show</h2>
+      }
     </div>
   )
 }

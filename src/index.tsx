@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom'; // Import BrowserRouter
 import './index.css';
-import reportWebVitals from './reportWebVitals';
 import App from './App';
+import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createRoot } from 'react-dom/client';
 

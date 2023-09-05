@@ -12,7 +12,7 @@ const RedditHeader: React.FC = () => {
           <Nav className="ml-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/ask">Ask</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/add">Add</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
