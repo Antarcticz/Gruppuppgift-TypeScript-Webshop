@@ -2,7 +2,7 @@ import './AskForm.css';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import threadsService from '../../Forum/threads/threadService';
-// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 interface Thread {
@@ -16,6 +16,8 @@ interface Thread {
 }
 
 const AskForm: React.FC = () => {
+
+  const navigate = useNavigate()
 
   const initialFormData: Thread = {
     id: Date.now(), //Generate this dynamically?
@@ -45,6 +47,7 @@ const AskForm: React.FC = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    navigate('/')
 
     try {
       await threadsService.createThread(formData);
@@ -56,55 +59,55 @@ const AskForm: React.FC = () => {
     }
   };
 
-    return (
-      <div className="ask-form-container">
-        <h2 className='create-thread-header'>Create a New Thread</h2>
-        <Form onSubmit={handleSubmit}>
+  return (
+    <div className="ask-form-container">
+      <h2 className='create-thread-header'>Create a New Thread</h2>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className='form-group' controlId="threadName">
-            <Form.Label>Thread name</Form.Label>
-            <Form.Control
-              type="text"
-              name="threadName"
-              value={formData.threadName}
-              onChange={handleInputChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className='form-group' controlId="title">
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className='form-group' controlId="category">
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              type="text"
-              name="category"
-              value={formData.category}
-              onChange={handleInputChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className='form-group' controlId="description">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={4}
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              required
-            />
-          </Form.Group>
+          <Form.Label>Thread name</Form.Label>
+          <Form.Control
+            type="text"
+            name="threadName"
+            value={formData.threadName}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
+        <Form.Group className='form-group' controlId="title">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
+        <Form.Group className='form-group' controlId="category">
+          <Form.Label>Category</Form.Label>
+          <Form.Control
+            type="text"
+            name="category"
+            value={formData.category}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
+        <Form.Group className='form-group' controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={4}
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
           <Button id='form-button' type="submit">Submit</Button>
-        </Form>
-      </div>
-    );
-  };
+      </Form>
+    </div>
+  );
+};
 
 export default AskForm;
