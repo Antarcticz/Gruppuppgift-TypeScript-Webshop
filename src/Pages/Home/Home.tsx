@@ -44,7 +44,7 @@ const Home = () => {
     <div className='home-container'>
       <div className='sorting-container'>
         <div>
-          <h2 className='home-title'>All Questions</h2>
+          <h2 className='home-title' style={{color: '#fff'}}>All Questions</h2>
         </div>
         <div>
           <SortingButton onSort={setSortingOption} />
