@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
 import'./Header.css'
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
+
 const RedditHeader: React.FC = () => {
+
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar id='navbar' bg="dark" variant="dark" expand="lg">
       <Container>
         <Navbar.Brand href="/">Fortunate Forum</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
