@@ -18,14 +18,14 @@ interface Thread {
 const AskForm: React.FC = () => {
 
   const initialFormData: Thread = {
-    id: 0, //Generate this dynamically?
+    id: Date.now(), //Generate this dynamically?
     threadName: '',
     title: '',
     category: '', // Replace with the default category?
     creationDate: '', //Generate this dynamically?
     description: '',
     creator: {
-      id: 0, //Generate this dynamically?
+      id: Date.now(), //Generate this dynamically?
       name: '',
       userName: ''
     },
