@@ -1,23 +1,33 @@
 import './AskForm.css';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import threadsService from '../../store/threads/threadService';
+
 
 interface Thread {
+  threadName: string | number | string[] | undefined;
   id: number;
   title: string;
   category: string;
   creationDate: string;
   description: string;
+  creator: User;
 }
 
 const AskForm: React.FC = () => {
 
   const initialFormData: Thread = {
+    id: 0, //Generate this dynamically?
+    threadName: '',
     title: '',
-    category: '',
-    creationDate: '',
+    category: '', // Replace with the default category?
+    creationDate: '', //Generate this dynamically?
     description: '',
-    id: 0
+    creator: {
+      id: 0, //Generate this dynamically?
+      name: '',
+      userName: ''
+    },
   };
 
   const [formData, setFormData] = useState<Thread>(initialFormData);
@@ -32,63 +42,68 @@ const AskForm: React.FC = () => {
     });
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    // Handle form submission, e.g., send the form data to a server or store it in your state.
-    console.log('Submitted form data:', formData);
-    // Reset the form fields
-    setFormData(initialFormData);
+
+    try {
+      await threadsService.createThread(formData);
+      console.log('Thread created successfully');
+      // Reset the form fields
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error('Error creating thread:', error);
+    }
   };
 
-  return (
-    <div className="ask-form-container">
-      <h1>Ask a Question</h1>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="form-group" controlId="title">
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            placeholder="Be specific and imagine you’re asking a question to another person."
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="form-group" controlId="category">
-          <Form.Label>What is the category of your problem?</Form.Label>
-          <Form.Control
-            as="select" // Use "select" to create a dropdown
-            name="category"
-            value={formData.category}
-            onChange={handleInputChange}
-            required
-          >
-            <option value="">Choose a category</option>
-            <option value="Category 1">Category 1</option>
-            <option value="Category 2">Category 2</option>
-            <option value="Category 3">Category 3</option>
-            {/* Add more options as needed */}
-          </Form.Control>
-        </Form.Group>
-        <Form.Group className="form-group" controlId="description">
-          <Form.Label>What did you try and what were you expecting?</Form.Label>
-          <Form.Control
-            placeholder="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
-            as="textarea"
-            rows={4}
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            required
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </div>
-  );
-};
+    return (
+      <div className="ask-form-container">
+        <h2 className='create-thread-header'>Create a New Thread</h2>
+        <Form onSubmit={handleSubmit}>
+        <Form.Group className='form-group' controlId="threadName">
+            <Form.Label>Thread name</Form.Label>
+            <Form.Control
+              type="text"
+              name="threadName"
+              value={formData.threadName}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group className='form-group' controlId="title">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group className='form-group' controlId="category">
+            <Form.Label>Category</Form.Label>
+            <Form.Control
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group className='form-group' controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={4}
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Button id='form-button' type="submit">Submit</Button>
+        </Form>
+      </div>
+    );
+  };
 
 export default AskForm;
