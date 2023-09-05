@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Home.css';
-import threadsService from '../../store/threads/threadService';
+import threadsService from '../../Forum/threads/threadService';
 import Card from '../../components/Card/Card';
 import SortingButton from '../../components/Sorting/SortingButton';
 
