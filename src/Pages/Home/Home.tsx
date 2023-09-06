@@ -3,12 +3,14 @@ import './Home.css';
 import threadsService from '../../store/threads/threadService';
 import Card from '../../components/Card/Card';
 import SortingButton from '../../components/Sorting/SortingButton';
+import { UserAuth } from '../../context/AuthContext';
 
 const Home = () => {
   const [threadList, setThreadList] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortingOption, setSortingOption] = useState<string>('newest');
   const [sortedThreadList, setSortedThreadList] = useState<Thread[]>([]);
+  const { user } = UserAuth();
 
   /* Mapping Threads */
   useEffect(() => {
@@ -42,6 +44,9 @@ const Home = () => {
 
   return (
     <div className='home-container'>
+      {user && user.displayName ? (
+        <div className='displayName'>Welcome, {user.displayName}</div>
+      ) : null}
       <div className='sorting-container'>
         <div>
           <h2 className='home-title'>All Questions</h2>

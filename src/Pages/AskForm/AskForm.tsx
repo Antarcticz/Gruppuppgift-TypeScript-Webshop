@@ -24,9 +24,11 @@ const AskForm: React.FC = () => {
     creationDate: '', //Generate this dynamically?
     description: '',
     creator: {
-      id: 0, //Generate this dynamically?
+      id: 0,
       name: '',
-      userName: ''
+      userName: '',
+      password: '',
+      email:''
     },
   };
 

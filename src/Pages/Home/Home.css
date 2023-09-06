@@ -41,4 +41,17 @@
     border-radius: 0.5rem;
     padding: 1rem;
 }
+
+.displayName {
+    position: absolute;
+    top: 4rem;
+    left: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12rem;
+    height: 2.5rem;
+    border-radius: 0.3rem;
+    background-color: rgb(137, 180, 141);
+}
   
