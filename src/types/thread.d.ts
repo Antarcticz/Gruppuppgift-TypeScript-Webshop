@@ -7,3 +7,9 @@ interface Thread {
     description: string;
     creator: User
 }
+
+interface QNAThread extends Thread {
+	category: "QNA";
+	isAnswered: boolean;
+	commentAnswerId?: number
+}
