@@ -6,17 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 
 interface Thread {
-  threadName: string | number | string[] | undefined;
+  threadName: string;
   id: number;
   title: string;
   category: string;
   creationDate: string;
   description: string;
   creator: User;
+  comments: string[];
 }
 
 const AskForm: React.FC = () => {
-
   const navigate = useNavigate()
 
   const initialFormData: Thread = {
@@ -31,6 +31,7 @@ const AskForm: React.FC = () => {
       name: '',
       userName: ''
     },
+    comments: [] 
   };
 
   const [formData, setFormData] = useState<Thread>(initialFormData);
@@ -46,18 +47,28 @@ const AskForm: React.FC = () => {
   };
 
   const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    navigate('/')
+  event.preventDefault();
 
-    try {
-      await threadsService.createThread(formData);
-      console.log('Thread created successfully');
-      // Reset the form fields
-      setFormData(initialFormData);
-    } catch (error) {
-      console.error('Error creating thread:', error);
-    }
-  };
+  // Set the creation date to the current date and time
+  const currentDateTime = new Date().toISOString();
+
+  try {
+    await threadsService.createThread({
+      ...formData,
+      creationDate: currentDateTime,
+      comments: [],  // Set the creationDate here
+    });
+    console.log('Thread created successfully');
+    // Reset the form fields
+    setFormData(initialFormData);
+  } catch (error) {
+    console.error('Error creating thread:', error);
+  }
+
+  navigate('/');
+};
+
+   
 
   return (
     <div className="ask-form-container">
