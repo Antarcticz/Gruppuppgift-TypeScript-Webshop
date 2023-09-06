@@ -1,6 +1,7 @@
 import { db } from "../../firebase/config"
 import { addDoc, collection, getDocs, doc, deleteDoc } from 'firebase/firestore'
 
+
 /*GET ALL*/
 async function getThreads(): Promise<Thread[]> {
     try {
@@ -45,38 +46,10 @@ async function deleteThread(threadId: string): Promise<void> {
   }
 }
 
-
-
-  
-
-
-// const createProduct = async (productData) => {
-//     const collectionRef = collection(db, 'threads')
-//     const docRef = await addDoc(collectionRef, productData)
-
-//     if (!docRef.id) throw new Error('Something went wrong')
-
-//     console.log(docRef)
-//     return { id: docRef.id, ...productData }
-
-// }
-
-// const getAllAsync = async (col) => {
-//     const colRef = collection(db, col)
-//     const querySnapshot = await getDocs(colRef)
-
-//     const threads = []
-//     querySnapshot.forEach(doc => {
-//         threads.push({ id: doc.id, ...doc.data() })
-//     })
-
-//     return threads
-// }
-
 const threadsService = {
     getThreads,
     createThread,
-    deleteThread
+    deleteThread,
 }
 
 export default threadsService
