@@ -36,11 +36,11 @@ const Home = () => {
     if (sortingOption === 'newest') {
       sortedThreadsCopy.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
     } else if (sortingOption === 'noAnswers') {
-  
+      
     } else if (sortingOption === 'latest') {
       sortedThreadsCopy.sort((a, b) => new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime());
     }
-
+    console.log(threadList)
     setSortedThreadList(sortedThreadsCopy);
   }, [sortingOption, threadList]);
   
