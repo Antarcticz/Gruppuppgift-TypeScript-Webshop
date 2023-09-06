@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import './Header.css';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import { UserAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 const RedditHeader: React.FC = () => {
   const { user, logOut, googleSignIn } = UserAuth();
-  const navigate = useNavigate()
 
   const handleGoogleSignIn = async () => {
     try {

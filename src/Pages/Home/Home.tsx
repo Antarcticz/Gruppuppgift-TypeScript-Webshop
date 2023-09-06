@@ -4,8 +4,11 @@ import threadsService from '../../store/threads/threadService';
 import Card from '../../components/Card/Card';
 import SortingButton from '../../components/Sorting/SortingButton';
 import { UserAuth } from '../../context/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [threadList, setThreadList] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortingOption, setSortingOption] = useState<string>('newest');
@@ -41,11 +44,33 @@ const Home = () => {
     setSortedThreadList(sortedThreadsCopy);
   }, [sortingOption, threadList]);
   
+  /*Capital letters*/
+  function capitalizeFirstLetter(name: string) {
+    return name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  }
+
+  /*User display expansion*/
+  const toggleExpansion = () => {
+    setIsExpanded(!isExpanded);
+  };  
 
   return (
     <div className='home-container'>
-      {user && user.displayName ? (
-        <div className='displayName'>Welcome, {user.displayName}</div>
+        {user && user.displayName ? (
+      <div className={`userDisplay ${isExpanded ? 'expanded' : ''}`} onClick={toggleExpansion}>
+        <h5>Welcome</h5>
+        <div className='displayName'>
+        {user.photoURL && (
+          <div>
+            <img className='userImg' src={user.photoURL} alt="User Profile" />
+          </div>
+        )}
+        {capitalizeFirstLetter(user.displayName)}
+        <FontAwesomeIcon icon={faArrowDown} className='arrowDown'/>
+        </div>
+        <h6>Open Threads</h6>
+        <div>You have no current threads</div>
+      </div>  
       ) : null}
       <div className='sorting-container'>
         <div>
