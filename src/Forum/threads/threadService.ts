@@ -5,7 +5,7 @@ import { addDoc, collection, getDocs, doc, deleteDoc } from 'firebase/firestore'
 /*GET ALL*/
 async function getThreads(): Promise<Thread[]> {
     try {
-        const threadCollectionRef = collection(db, 'products')
+        const threadCollectionRef = collection(db, 'threads')
         const threadSnapshot = await getDocs(threadCollectionRef)
         const threads: Thread[] = []
         threadSnapshot.forEach((doc) => {
@@ -21,7 +21,7 @@ async function getThreads(): Promise<Thread[]> {
 /*POST*/
 async function createThread(threadData: Thread): Promise<void> {
   try {
-    const threadsCollectionRef = collection(db, 'products');
+    const threadsCollectionRef = collection(db, 'threads');
 
     await addDoc(threadsCollectionRef, threadData);
     
@@ -35,7 +35,7 @@ async function createThread(threadData: Thread): Promise<void> {
 /*DELETE*/
 async function deleteThread(threadId: string): Promise<void> {
   try {
-    const threadDocRef = doc(db, 'products', threadId);
+    const threadDocRef = doc(db, 'threads', threadId);
 
     await deleteDoc(threadDocRef);
 
@@ -46,13 +46,10 @@ async function deleteThread(threadId: string): Promise<void> {
   }
 }
 
-
-
-
-const productsService = {
+const threadsService = {
     getThreads,
     createThread,
     deleteThread,
 }
 
-export default productsService
+export default threadsService

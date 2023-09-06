@@ -1,7 +1,8 @@
 import './AskForm.css';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import threadsService from '../../store/threads/threadService';
+import threadsService from '../../Forum/threads/threadService';
+import { useNavigate } from 'react-router-dom';
 
 
 interface Thread {
@@ -16,15 +17,17 @@ interface Thread {
 
 const AskForm: React.FC = () => {
 
+  const navigate = useNavigate()
+
   const initialFormData: Thread = {
-    id: 0, //Generate this dynamically?
+    id: Date.now(), //Generate this dynamically?
     threadName: '',
     title: '',
     category: '', // Replace with the default category?
     creationDate: '', //Generate this dynamically?
     description: '',
     creator: {
-      id: 0,
+      id: Date.now(), //Generate this dynamically?
       name: '',
       userName: '',
       password: '',
@@ -46,6 +49,7 @@ const AskForm: React.FC = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    navigate('/')
 
     try {
       await threadsService.createThread(formData);
@@ -57,45 +61,45 @@ const AskForm: React.FC = () => {
     }
   };
 
-    return (
-      <div className="ask-form-container">
-        <h2 className='create-thread-header'>Create a New Thread</h2>
-        <Form onSubmit={handleSubmit}>
+  return (
+    <div className="ask-form-container">
+      <h2 className='create-thread-header'>Create a New Thread</h2>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className='form-group' controlId="threadName">
+            <Form.Label>Thread name</Form.Label>
             <Form.Control
               type="text"
               name="threadName"
               value={formData.threadName}
               onChange={handleInputChange}
               required
-              placeholder='Thread name'
             />
           </Form.Group>
           <Form.Group className='form-group' controlId="title">
+            <Form.Label>Title</Form.Label>
             <Form.Control
               type="text"
               name="title"
               value={formData.title}
               onChange={handleInputChange}
               required
-              placeholder='Title'
             />
           </Form.Group>
           <Form.Group className='form-group' controlId="category">
+            <Form.Label>Category</Form.Label>
             <Form.Control
               type="text"
               name="category"
               value={formData.category}
               onChange={handleInputChange}
               required
-              placeholder='Category'
             />
           </Form.Group>
           <Form.Group className='form-group' controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
               as="textarea"
-              rows={6}
+              rows={4}
               name="description"
               value={formData.description}
               onChange={handleInputChange}
@@ -103,9 +107,9 @@ const AskForm: React.FC = () => {
             />
           </Form.Group>
           <Button id='form-button' type="submit">Submit</Button>
-        </Form>
-      </div>
-    );
-  };
+      </Form>
+    </div>
+  );
+};
 
 export default AskForm;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Home.css';
-import threadsService from '../../store/threads/threadService';
+import threadsService from '../../Forum/threads/threadService';
 import Card from '../../components/Card/Card';
 import SortingButton from '../../components/Sorting/SortingButton';
 import { UserAuth } from '../../context/AuthContext';
@@ -74,7 +74,7 @@ const Home = () => {
       ) : null}
       <div className='sorting-container'>
         <div>
-          <h2 className='home-title'>All Questions</h2>
+          <h2 className='home-title' style={{color: '#fff'}}>All Questions</h2>
         </div>
         <div>
           <SortingButton onSort={setSortingOption} />
