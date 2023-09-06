@@ -1,7 +1,6 @@
 import { db } from "../../firebase/config"
 import { addDoc, collection, getDocs, doc, deleteDoc } from 'firebase/firestore'
 
-
 /*GET ALL*/
 async function getThreads(): Promise<Thread[]> {
     try {

@@ -36,7 +36,7 @@ const Home = () => {
     if (sortingOption === 'newest') {
       sortedThreadsCopy.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
     } else if (sortingOption === 'noAnswers') {
-      // Implement sorting logic for no answers
+  
     } else if (sortingOption === 'latest') {
       sortedThreadsCopy.sort((a, b) => new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime());
     }
@@ -90,7 +90,6 @@ const Home = () => {
           <Card
             key={`${thread.id}-${thread.title}`}
             thread={thread}
-            
           />
         ))
       ) : (

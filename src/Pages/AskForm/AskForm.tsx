@@ -20,14 +20,14 @@ const AskForm: React.FC = () => {
   const navigate = useNavigate()
 
   const initialFormData: Thread = {
-    id: Date.now(), //Generate this dynamically?
+    id: Date.now(),
     threadName: '',
     title: '',
-    category: '', // Replace with the default category?
-    creationDate: '', //Generate this dynamically?
+    category: '',
+    creationDate: '',
     description: '',
     creator: {
-      id: Date.now(), //Generate this dynamically?
+      id: Date.now(),
       name: '',
       userName: '',
       password: '',
@@ -54,7 +54,7 @@ const AskForm: React.FC = () => {
     try {
       await threadsService.createThread(formData);
       console.log('Thread created successfully');
-      // Reset the form fields
+  
       setFormData(initialFormData);
     } catch (error) {
       console.error('Error creating thread:', error);
