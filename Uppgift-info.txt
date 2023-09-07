@@ -1,0 +1,95 @@
+Generella regler
+
+1. Alla komponenter ska vara typade och type-safe.
+2. All genererad data ska sparas (localStorage om jag inte har satt upp en databas)
+3. React ska inte varna om något vid inlämning försök att fixa Type errors så snart som möjligt. 
+   errors som ni själva inte har kontroll över bortses från
+4. Ni ska bevisa vissa färdigheter i
+    a. interfaces och type
+    b. type guards / type assertions
+    c. hook typing
+    d. form typing ( tillräckligt för att säkerställa data hanteringen)
+5. Design är sekundärt till funktionalitet lägg lite tid för att det ska se presetabelt ut 
+   men håll det simplet och låt era färdigheter i Typescript stå i fokus.
+6. Vill man koppla på en egen databas eller lagra data på annat sätt så är det fritt fram 
+   att göra det men försök ha alla systemen på plats innan så att ni altid kan backa om tiden inte räcker till.
+7. Projektet ska finnas på en Github som alla medlemmar har tillgång till + utbildaren
+8. Försök dela upp arbete så att ni antingen kodar tillsammans eller låter alla i gruppen 
+   delta i olika moment och inte att någon ska agera endast som designer eller liknande.
+
+_______________________________________________________________________________________________________________
+
+Funktionalitet
+
+1. Lista trådar i en list vy
+2. Differentiera på om det är en Questions and Answer tråd eller vanlig tråd eller annan tråd (om sådan finns)
+3. Skapa en ny tråd
+4. Ta bort en tråd
+5. Uppdatera en tråds innehåll
+6. Spara alla förändringar i databas (localStorage eller annan DB)
+7. Visa en detalj tråd
+8. Visa spesifika tråd element berodende på typ av tråd
+9. Kommentera på tråden
+10. Ta bort kommentar
+
+_______________________________________________________________________________________________________________
+
+Ni kommer att visa en demo om erat projekt den XX och då får ni gärna nämna 
+om det var något särskilt som ni tänkte på.
+
+Efter det kommer ni få sätta er med en annan grupps projekt och gå igenom kort koden. 
+Vad vi är ute efter här är inte bitande eller destruktiv kritik utan:
+
+    Dels vad som var bra eller något som ni inte tänkte på eller som ni löste det på ett annat sätt.
+    Dels frågor till utbildaren om det är något i koden ni inte förstår
+    Dels förslag på förbättringar
+
+Både presentationen och kritiken/code review är betygs grundande. Men det är frivilligt efteråt om 
+man vill få den kritiken som andra har skrivit på ens eget projekt. Då säger man till utbildaren 
+så får den dela det. Tänk er att ni alla jobbar som olika teams på ett företag och 
+att håll kritiken professionell.
+_______________________________________________________________________________________________________________
+
+Vyer
+
+ThreadListView
+Lista över alla trådar
+ThreadDetailView
+Tråd detaljer
+Lista över kommentarer för den tråden
+skapa ny kommentar
+ThreadCreationView
+Fylla i tråd detaljer
+
+_______________________________________________________________________________________________________________
+
+Typer
+interface User {
+id: number;
+name: string;
+userName: string;
+}
+
+type ThreadCategory = "THREAD" | "QNA"
+interface Thread {
+id: number;
+title: string;
+category: ThreadCategory;
+creationDate: string;
+description: string;
+creator: User
+}
+
+interface QNAThread extends Thread {
+category: "QNA";
+isAnswered: boolean;
+commentAnswerId?: number
+}
+
+interface Comment {
+thread: number;
+content: string;
+creator: User
+}
+
+Bortsett från typerna ovan kan ni lägga till variationer så länge grund strukturen är detsamma.
