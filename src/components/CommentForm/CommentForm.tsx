@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import './CommentForm.css';
 
 interface CommentFormProps {
   onSubmit: (comment: string) => void;
@@ -7,21 +9,28 @@ interface CommentFormProps {
 const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
   const [comment, setComment] = useState('');
 
-  const handleCommentSubmit = () => {
+  const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent the default form submission behavior
     onSubmit(comment);
     setComment('');
   };
 
   return (
-    <div className="comment-form">
-      <input 
-        type="text" 
-        value={comment} 
-        onChange={(e) => setComment(e.target.value)} 
-        placeholder="Your comment" 
-      />
-      <button onClick={handleCommentSubmit}>Submit</button>
-    </div>
+    <Form onSubmit={handleCommentSubmit}>
+      <Form.Group controlId="comment">
+        <Form.Control
+          id='comment-form-input'
+          as="textarea"
+          name="comment"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Your comment"
+        />
+      </Form.Group>
+      <Button className='comment-form-btn' type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };
 

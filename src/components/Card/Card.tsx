@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Card.css";
 import CommentForm from '../CommentForm/CommentForm';
 import threadsService from '../../Forum/threads/threadService';
+import { Button } from 'react-bootstrap';
 
 interface User {
   id: number;
@@ -59,37 +60,36 @@ const Card: React.FC<{ thread: Thread }> = ({ thread }) => {
     <div className="card-container">
       <div className="card-header">
         <h3 className="card-thread-name">{thread.threadName}</h3>
-        <button className="thread-detail-button" onClick={toggleExpand}>
+        <Button className="btn btn-warning" onClick={toggleExpand}>
           {isExpanded ? "Hide Details" : "Details"}
-        </button>
+        </Button>
       </div>
       <div className="card-container-right-section">
         <p>{thread.description}</p>
       </div>
       {isExpanded && (
         <div className="expanded-section">
-          <h4>Title: {thread.title}</h4>
-          <p>Category: {thread.category}</p>
-          <p>Description: {thread.description}</p>
-          <p>
-            Creator: {thread.creator.name} ({thread.creator.userName})
-          </p>
-          <p>Creation Date: {formatDate(thread.creationDate)}</p>
-          {localComments.length > 0 ? (
-            <div className="comments-section">
-              <h5>Comments:</h5>
-              <ul>
-                {localComments.map((comment, index) => (
-                  <li key={index}>{comment}</li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <p>No comments yet.</p>
-            
-          )}
-          <CommentForm onSubmit={handleCommentSubmit} />
+          <p className="details-section">Creator: {thread.creator.name} ({thread.creator.userName})</p>
+          <p className="details-section">Category: {thread.category}</p>
+        <div className="expanded-section-top">
+          <p className="details-section">Creation Date: {formatDate(thread.creationDate)}</p>
         </div>
+        <p className="details-section-description">{thread.description}</p>
+        {localComments.length > 0 ? (
+          <div className="comments-section">
+            <h5>Comments:</h5>
+            <ul>
+              {localComments.map((comment, index) => (
+                <li className="details-comment-section" key={index}>{comment}</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p>No comments yet.</p>
+          
+        )}
+        <CommentForm onSubmit={handleCommentSubmit} />
+      </div>
       )}
     </div>
   );
