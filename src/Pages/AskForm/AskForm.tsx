@@ -10,7 +10,7 @@ interface Thread {
   id: number;
   title: string;
   category: string;
-  creationDate: string;
+  creationDate: Number;
   description: string;
   creator: User;
   comments: string[];
@@ -24,7 +24,7 @@ const AskForm: React.FC = () => {
     threadName: '',
     title: '',
     category: '', // Replace with the default category?
-    creationDate: '', //Generate this dynamically?
+    creationDate: Date.now(), //Generate this dynamically?
     description: '',
     creator: {
       id: Date.now(), //Generate this dynamically?
