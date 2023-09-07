@@ -12,7 +12,6 @@ interface User {
 
 interface Thread {
   id: number;
-  threadName: string;
   title: string;
   category: string;
   creationDate: string;
@@ -59,7 +58,7 @@ const Card: React.FC<{ thread: Thread }> = ({ thread }) => {
   return (
     <div className="card-container">
       <div className="card-header">
-        <h3 className="card-thread-name">{thread.threadName}</h3>
+        <h3 className="card-thread-name">{thread.title}</h3>
         <Button className="btn btn-warning" onClick={toggleExpand}>
           {isExpanded ? "Hide Details" : "Details"}
         </Button>
