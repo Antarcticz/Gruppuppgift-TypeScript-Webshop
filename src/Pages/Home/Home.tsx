@@ -3,7 +3,7 @@ import './Home.css';
 import threadsService from '../../Forum/threads/threadService';
 import Card from '../../components/Card/Card';
 import SortingButton from '../../components/Sorting/SortingButton';
-import { UserAuth } from '../../context/AuthContext';
+import { useUserAuth} from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,7 +13,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [sortingOption, setSortingOption] = useState<string>('newest');
   const [sortedThreadList, setSortedThreadList] = useState<Thread[]>([]);
-  const { user } = UserAuth();
+  const { user } = useUserAuth();
 
   /* Mapping Threads */
   useEffect(() => {

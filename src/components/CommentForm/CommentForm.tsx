@@ -17,7 +17,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
 
   return (
     <Form onSubmit={handleCommentSubmit}>
-      <Form.Group controlId="comment">
+      <Form.Group>
         <Form.Control
           id='comment-form-input'
           as="textarea"

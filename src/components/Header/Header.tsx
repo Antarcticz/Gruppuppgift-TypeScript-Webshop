@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import './Header.css';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { UserAuth } from '../../context/AuthContext';
+import { useUserAuth } from '../../context/AuthContext';
 
 const RedditHeader: React.FC = () => {
-  const { user, logOut, googleSignIn } = UserAuth();
+  const { user, logOut, googleSignIn } = useUserAuth();
 
   const handleGoogleSignIn = async () => {
     try {
