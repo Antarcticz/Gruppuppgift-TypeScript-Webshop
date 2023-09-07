@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./Card.css";
 import CommentForm from '../CommentForm/CommentForm';
 import threadsService from '../../Forum/threads/threadService';
+import { UserAuth } from '../../context/AuthContext';
 import { Button } from 'react-bootstrap';
 
-interface User {
-  id: number;
-  name: string;
-  userName: string;
-}
+
 
 interface Thread {
   id: number;
@@ -50,10 +47,12 @@ const Card: React.FC<{ thread: Thread }> = ({ thread }) => {
       console.error('Error adding comment:', error);
     }
   };
-  
+
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+
+  const { user } = UserAuth();
 
   return (
     <div className="card-container">
@@ -68,27 +67,38 @@ const Card: React.FC<{ thread: Thread }> = ({ thread }) => {
       </div>
       {isExpanded && (
         <div className="expanded-section">
-          <p className="details-section">Creator: {thread.creator.name} ({thread.creator.userName})</p>
+          <p className="details-section">Creator: {user.displayName}</p>
           <p className="details-section">Category: {thread.category}</p>
-        <div className="expanded-section-top">
-          <p className="details-section">Creation Date: {formatDate(thread.creationDate)}</p>
-        </div>
-        <p className="details-section-description">{thread.description}</p>
-        {localComments.length > 0 ? (
-          <div className="comments-section">
-            <h5>Comments:</h5>
-            <ul>
-              {localComments.map((comment, index) => (
-                <li className="details-comment-section" key={index}>{comment}</li>
-              ))}
-            </ul>
+          <div className="expanded-section-top">
+            <p className="details-section">Creation Date: {formatDate(thread.creationDate)}</p>
           </div>
-        ) : (
-          <p>No comments yet.</p>
-          
-        )}
-        <CommentForm onSubmit={handleCommentSubmit} />
-      </div>
+          <p className="details-section-description">{thread.description}</p>
+          {localComments.length > 0 ? (
+            <div className="comments-section">
+              <h5>Comments:</h5>
+              <ul>
+                {localComments.map((comment, index) => (
+                  <li className="details-comment-section" key={index}>{user && user.displayName ? (
+                    <div>
+                      <div className="d-flex justify-content-flex-start align-items-center pb-3">
+                        {user.photoURL && (
+                          <div>
+                            <img className='userImg' src={user.photoURL} alt="User Profile" />
+                          </div>
+                        )}
+                        {(user.displayName)}
+                      </div>
+                    </div>
+                  ) : null}{comment}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <p>No comments yet.</p>
+
+          )}
+          <CommentForm onSubmit={handleCommentSubmit} />
+        </div>
       )}
     </div>
   );
