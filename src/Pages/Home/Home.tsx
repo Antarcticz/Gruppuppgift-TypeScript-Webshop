@@ -9,7 +9,7 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [threadList, setThreadList] = useState<Thread[]>([]);
+  const [threadList, setThreadList] = useState<Thread[]>([]); //State is an array of threads
   const [loading, setLoading] = useState(true);
   const [sortingOption, setSortingOption] = useState<string>('newest');
   const [sortedThreadList, setSortedThreadList] = useState<Thread[]>([]);
