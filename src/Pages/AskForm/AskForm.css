@@ -1,13 +1,17 @@
 @import '../../variable.css';
 
+.page-container {
+    min-height: 100vh;
+}
+
 .ask-form-container {
     margin: auto;
     width: 75%;
-    height: 100%;
     border-radius: 0.3rem;
     padding: 1rem;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.374);
-    background-color: rgb(190, 190, 190);
+    background-color: #3e4347;
+    color: rgb(233, 235, 237);
 }
 
 .create-thread-header {
@@ -18,7 +22,6 @@
     margin-bottom: 1.5rem;
 }
 
-#form-button {
-    background-color: var(--primary-button-orange);
-    border: none;
-} 
+#ask-form-input {
+    background-color: rgb(215, 217, 219);
+}
