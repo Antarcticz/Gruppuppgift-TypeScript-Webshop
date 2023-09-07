@@ -79,7 +79,7 @@ const Card: React.FC<{ thread: Thread }> = ({ thread }) => {
             <h5>Comments:</h5>
             <ul>
               {localComments.map((comment, index) => (
-                <li className="details-comment-section" key={index}>{comment}</li>
+                <li className="details-comment-section" key={index}> {comment}</li>
               ))}
             </ul>
           </div>
