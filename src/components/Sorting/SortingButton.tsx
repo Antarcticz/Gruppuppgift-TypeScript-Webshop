@@ -21,7 +21,6 @@ interface SortingButtonProps {
 
       <Dropdown.Menu>
         <Dropdown.Item onClick={() => handleOptionChange('newest')}>Newest</Dropdown.Item>
-        <Dropdown.Item onClick={() => handleOptionChange('noAnswers')}>No answers</Dropdown.Item>
         <Dropdown.Item onClick={() => handleOptionChange('latest')}>Latest</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
