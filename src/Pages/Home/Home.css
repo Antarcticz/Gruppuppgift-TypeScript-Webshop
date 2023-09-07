@@ -70,6 +70,11 @@
     font-weight: 600;
     cursor: pointer;
     margin-bottom: 1rem;
+    box-shadow: 2px 2px 2px #00000060, inset 1px 1px 1px 0px rgba(255, 255, 255, 0.5);
+}
+.displayName:hover {
+    background-color: hsl(0, 0%, 80%);
+    box-shadow: inset 2px 2px 1px 0px rgba(0, 0, 0, 0.5), inset 0px 0px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .userDisplay.expanded {
