@@ -10,7 +10,7 @@ interface Thread {
   id: number;
   title: string;
   category: string;
-  creationDate: string;
+  creationDate: Number;
   description: string;
   creator: User;
   comments: string[];
@@ -24,7 +24,7 @@ const AskForm: React.FC = () => {
     threadName: '',
     title: '',
     category: '', // Replace with the default category?
-    creationDate: '', //Generate this dynamically?
+    creationDate: Date.now(), //Generate this dynamically?
     description: '',
     creator: {
       id: Date.now(), //Generate this dynamically?
@@ -70,22 +70,10 @@ const AskForm: React.FC = () => {
   navigate('/');
 };
 
-   
-
   return (
     <div className="ask-form-container">
       <h2 className='create-thread-header'>Create a New Thread</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className='form-group' controlId="threadName">
-          <Form.Label>Thread name</Form.Label>
-          <Form.Control
-            type="text"
-            name="threadName"
-            value={formData.threadName}
-            onChange={handleInputChange}
-            required
-          />
-        </Form.Group>
         <Form.Group className='form-group' controlId="title">
           <Form.Label>Title</Form.Label>
           <Form.Control
