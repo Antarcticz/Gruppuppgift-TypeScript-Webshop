@@ -70,6 +70,8 @@ const AskForm: React.FC = () => {
   navigate('/');
 };
 
+   
+
   return (
     <div className='page-container'>
       <div className="ask-form-container">
