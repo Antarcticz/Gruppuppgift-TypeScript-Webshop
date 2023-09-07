@@ -21,4 +21,8 @@
 #form-button {
     background-color: var(--primary-button-orange);
     border: none;
-} 
+    box-shadow: 1px 1px 1px #00000060, inset 1px 1px 1px 0px rgba(255, 255, 255, 0.5);
+}
+#form-button:hover {
+    box-shadow: inset 2px 2px 1px 0px rgba(0, 0, 0, 0.5), inset 0px 0px 1px 1px rgba(255, 255, 255, 0.5);
+}
