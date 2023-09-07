@@ -50,7 +50,7 @@ const Card: React.FC<{ thread: Thread }> = ({ thread }) => {
       console.error('Error adding comment:', error);
     }
   };
-
+  
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
