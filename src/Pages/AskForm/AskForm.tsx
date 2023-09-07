@@ -33,7 +33,7 @@ const AskForm: React.FC = () => {
       password: '',
       email: '',
     },
-    comments: [] 
+    comments: []
   };
 
   const [formData, setFormData] = useState<Thread>(initialFormData);
@@ -49,28 +49,28 @@ const AskForm: React.FC = () => {
   };
 
   const handleSubmit = async (event: FormEvent) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  // Set the creation date to the current date and time
-  const currentDateTime = new Date().toISOString();
+    // Set the creation date to the current date and time
+    const currentDateTime = new Date().toISOString();
 
-  try {
-    await threadsService.createThread({
-      ...formData,
-      creationDate: currentDateTime,
-      comments: [],  // Set the creationDate here
-    });
-    console.log('Thread created successfully');
-    // Reset the form fields
-    setFormData(initialFormData);
-  } catch (error) {
-    console.error('Error creating thread:', error);
-  }
+    try {
+      await threadsService.createThread({
+        ...formData,
+        creationDate: currentDateTime,
+        comments: [],  // Set the creationDate here
+      });
+      console.log('Thread created successfully');
+      // Reset the form fields
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error('Error creating thread:', error);
+    }
 
-  navigate('/');
-};
+    navigate('/');
+  };
 
-   
+
 
   return (
     <div className='page-container'>
@@ -111,7 +111,7 @@ const AskForm: React.FC = () => {
               id='ask-form-input'
             />
           </Form.Group>
-            <Button id='form-button' type="submit">Submit</Button>
+          <Button id='form-button' type="submit">Submit</Button>
         </Form>
       </div>
     </div>

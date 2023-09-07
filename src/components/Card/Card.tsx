@@ -50,7 +50,7 @@ const Card: React.FC<{ thread: Thread }> = ({ thread }) => {
       console.error('Error adding comment:', error);
     }
   };
-  
+
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -70,25 +70,25 @@ const Card: React.FC<{ thread: Thread }> = ({ thread }) => {
         <div className="expanded-section">
           <p className="details-section">Creator: {thread.creator.name} ({thread.creator.userName})</p>
           <p className="details-section">Category: {thread.category}</p>
-        <div className="expanded-section-top">
-          <p className="details-section">Creation Date: {formatDate(thread.creationDate)}</p>
-        </div>
-        <p className="details-section-description">{thread.description}</p>
-        {localComments.length > 0 ? (
-          <div className="comments-section">
-            <h5>Comments:</h5>
-            <ul>
-              {localComments.map((comment, index) => (
-                <li className="details-comment-section" key={index}> {comment}</li>
-              ))}
-            </ul>
+          <div className="expanded-section-top">
+            <p className="details-section">Creation Date: {formatDate(thread.creationDate)}</p>
           </div>
-        ) : (
-          <p>No comments yet.</p>
-          
-        )}
-        <CommentForm onSubmit={handleCommentSubmit} />
-      </div>
+          <p className="details-section-description">{thread.description}</p>
+          {localComments.length > 0 ? (
+            <div className="comments-section">
+              <h5>Comments:</h5>
+              <ul>
+                {localComments.map((comment, index) => (
+                  <li className="details-comment-section" key={index}> {comment}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <p>No comments yet.</p>
+
+          )}
+          <CommentForm onSubmit={handleCommentSubmit} />
+        </div>
       )}
     </div>
   );

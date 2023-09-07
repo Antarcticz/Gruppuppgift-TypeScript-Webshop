@@ -34,7 +34,7 @@ const RedditHeader: React.FC = () => {
           </Nav>
           {user ? (
             <>
-              
+
               <button type="button" className="btn btn-secondary mr-1" onClick={handleSignOut}>
                 Sign Out
               </button>
