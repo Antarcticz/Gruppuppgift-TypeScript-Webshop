@@ -16,10 +16,10 @@ const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <Form onSubmit={handleCommentSubmit}>
-      <Form.Group controlId="comment">
+    <Form id='comment-form-wrapper' onSubmit={handleCommentSubmit}>
+      <Form.Group>
         <Form.Control
-          id='comment-form-input'
+          className='comment-form-input'
           as="textarea"
           name="comment"
           value={comment}

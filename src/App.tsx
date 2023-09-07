@@ -4,6 +4,8 @@ import Home from './Pages/Home/Home'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer';
 import { AuthContextProvider } from './context/AuthContext';
+import LoginPage from './components/Login/Login';
+import RegisterPage from './components/Register/Register';
 
 export default function App() {
   
@@ -14,6 +16,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/ask" element={<AskForm />} />
+            <Route path="/signIn" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         <Footer/>
       </AuthContextProvider>

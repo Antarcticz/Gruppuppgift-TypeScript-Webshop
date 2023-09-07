@@ -1,11 +1,14 @@
 interface Thread {
-    threadName: ReactNode;
-    id: number;
+  id: Key | null | undefined;
     title: string;
     category: string;
     creationDate: string;
     description: string;
-    creator: User
+    creator: {
+        uid: string;
+        displayName: string;
+  };
+  comments: string[];
 }
 
 interface QNAThread extends Thread {

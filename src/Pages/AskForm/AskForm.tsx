@@ -1,39 +1,36 @@
 import './AskForm.css';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import threadsService from '../../Forum/threads/threadService';
 import { useNavigate } from 'react-router-dom';
-
+import { AuthContext } from '../../context/AuthContext'; 
 
 interface Thread {
-  threadName: string;
-  id: number;
   title: string;
   category: string;
-  creationDate: Number;
+  creationDate: string;
   description: string;
-  creator: User;
+  creator: {
+    uid: string;
+    displayName: string;
+  };
   comments: string[];
 }
 
 const AskForm: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext); // Access user data from your AuthContext
 
   const initialFormData: Thread = {
-    id: Date.now(), //Generate this dynamically?
-    threadName: '',
     title: '',
-    category: '', // Replace with the default category?
-    creationDate: Date.now(), //Generate this dynamically?
+    category: '',
+    creationDate: '',
     description: '',
     creator: {
-      id: Date.now(), //Generate this dynamically?
-      name: '',
-      userName: '',
-      password: '',
-      email: '',
+      uid: '',
+      displayName: user?.displayName || '', // Set the display name from the user if available
     },
-    comments: [] 
+    comments: [],
   };
 
   const [formData, setFormData] = useState<Thread>(initialFormData);
@@ -49,67 +46,80 @@ const AskForm: React.FC = () => {
   };
 
   const handleSubmit = async (event: FormEvent) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  // Set the creation date to the current date and time
-  const currentDateTime = new Date().toISOString();
+    const currentDateTime = new Date().toISOString();
+  
+    try {
+      if (user) {
+        // User is authenticated, use their UID and display name
+        const userUid = user.uid;
+        const userDisplayName = user.displayName || 'Anonymous';
 
-  try {
-    await threadsService.createThread({
-      ...formData,
-      creationDate: currentDateTime,
-      comments: [],  // Set the creationDate here
-    });
-    console.log('Thread created successfully');
-    // Reset the form fields
-    setFormData(initialFormData);
-  } catch (error) {
-    console.error('Error creating thread:', error);
-  }
-
-  navigate('/');
-};
+        console.log('User UID:', userUid);
+        console.log('User Display Name:', userDisplayName);
+  
+        await threadsService.createThread({
+          ...formData,
+          creationDate: currentDateTime,
+          creator: {
+            uid: userUid,
+            displayName: userDisplayName,
+          },
+        });
+  
+        console.log('Thread created successfully');
+     
+        setFormData(initialFormData);
+        navigate('/');
+      } else {
+        console.error('User is not authenticated.');
+      }
+    } catch (error) {
+      console.error('Error creating thread:', error);
+    }
+  };
+  
 
   return (
     <div className='page-container'>
       <div className="ask-form-container">
         <h2 className='create-thread-header'>Create a New Thread</h2>
         <Form onSubmit={handleSubmit}>
-          <Form.Group className='form-group' controlId="title">
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              required
-              id='ask-form-input'
-            />
-          </Form.Group>
-          <Form.Group className='form-group' controlId="category">
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              type="text"
-              name="category"
-              value={formData.category}
-              onChange={handleInputChange}
-              required
-              id='ask-form-input'
-            />
-          </Form.Group>
-          <Form.Group className='form-group' controlId="description">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={4}
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              required
-              id='ask-form-input'
-            />
-          </Form.Group>
-            <Button id='form-button' type="submit">Submit</Button>
+            <Form.Group controlId="title">
+              <Form.Label>Title</Form.Label>
+              <Form.Control
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group className='form-group' controlId="category">
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                type="text"
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group className='form-group' controlId="description">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={4}
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Button id='form-button' type="submit">
+              Submit
+            </Button>
         </Form>
       </div>
     </div>

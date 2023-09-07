@@ -1,47 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import './Home.css';
 import threadsService from '../../Forum/threads/threadService';
-import Card from '../../components/Card/Card';
 import SortingButton from '../../components/Sorting/SortingButton';
 import { UserAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import ThreadCard from '../../components/Card/Card';
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [threadList, setThreadList] = useState<Thread[]>([]);
-  const [loading, setLoading] = useState(true);
   const [sortingOption, setSortingOption] = useState<string>('newest');
+
+  const [threadList, setThreadList] = useState<Thread[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [sortedThreadList, setSortedThreadList] = useState<Thread[]>([]);
+
   const { user } = UserAuth();
 
-  /* Mapping Threads */
   useEffect(() => {
     async function fetchThreads() {
       try {
         const threadsData = await threadsService.getThreads();
-        setThreadList(threadsData);
+        setThreadList(threadsData as Thread[]);
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     }
     fetchThreads();
-  }, [sortingOption]);
+  }, []);
+  
+  
 
-  /* Sorting Threads */
   useEffect(() => {
-    const sortedThreadsCopy = [...threadList];
+  const sortedThreadsCopy = [...threadList];
 
-    if (sortingOption === 'newest') {
-      sortedThreadsCopy.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
-    } else if (sortingOption === 'noAnswers') {
-    } else if (sortingOption === 'latest') {
-      sortedThreadsCopy.sort((a, b) => new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime());
-    }
-    console.log(threadList)
-    setSortedThreadList(sortedThreadsCopy);
-  }, [sortingOption, threadList]);
+  if (sortingOption === 'newest') {
+    sortedThreadsCopy.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
+  } else if (sortingOption === 'noAnswers') {
+  } else if (sortingOption === 'latest') {
+    sortedThreadsCopy.sort((a, b) => new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime());
+  }
+
+  setSortedThreadList(sortedThreadsCopy);
+}, [sortingOption, threadList]);
+
   
   /*Capital letters*/
   function capitalizeFirstLetter(name: string) {
@@ -85,16 +88,20 @@ const Home = () => {
           <div className="loading-message">Loading...</div>
         </div>
       ) : sortedThreadList.length > 0 ? (
-        sortedThreadList.map(thread => (
-          <Card
-            key={`${thread.id}-${thread.title}`}
+        sortedThreadList.map((thread) => (
+          <ThreadCard
+            key={thread.id}
             thread={thread}
           />
         ))
       ) : (
         <div className="loading-message">Failed to load resources. Please try again later.</div>
       )}
+
+
+      
     </div>
+    
   );
 };
 
