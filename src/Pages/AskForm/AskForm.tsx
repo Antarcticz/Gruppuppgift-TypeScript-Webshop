@@ -17,9 +17,16 @@ interface Thread {
   comments: string[];
 }
 
+interface AuthContextProps {
+  googleSignIn: () => void;
+  logOut: () => void;
+  user: User | null;
+}
+
 const AskForm: React.FC = () => {
+  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext); // Access user data from your AuthContext
+  const { user } = authContext || { user: null }; // Access user data from your AuthContext
 
   const initialFormData: Thread = {
     title: '',

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Home.css';
 import threadsService from '../../Forum/threads/threadService';
 import SortingButton from '../../components/Sorting/SortingButton';
-import { UserAuth } from '../../context/AuthContext';
+import { useUserAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import ThreadCard from '../../components/Card/Card';
@@ -15,7 +15,7 @@ const Home = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [sortedThreadList, setSortedThreadList] = useState<Thread[]>([]);
 
-  const { user } = UserAuth();
+  const { user } = useUserAuth();
 
   useEffect(() => {
     async function fetchThreads() {

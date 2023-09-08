@@ -8,7 +8,7 @@ import LoginPage from './components/Login/Login';
 import RegisterPage from './components/Register/Register';
 
 export default function App() {
-  
+
   return (
     <div className='app-container'>
       <AuthContextProvider>

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 
 interface SortingButtonProps {
-    onSort: (option: string) => void;
-  }
+  onSort: (option: string) => void;
+}
 
-  const SortingButton: React.FC<SortingButtonProps> = ({ onSort }) => {
+const SortingButton: React.FC<SortingButtonProps> = ({ onSort }) => {
   const [selectedOption, setSelectedOption] = useState('newest');
 
   const handleOptionChange = (option: string) => {

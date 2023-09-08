@@ -40,7 +40,7 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ thread }) => {
       console.error('Error adding comment:', error);
     }
   };
-  
+
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -53,17 +53,18 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ thread }) => {
         {isExpanded ? "Hide Details" : "Details"}
       </Button>
       {isExpanded && (
-        <div className="expanded-section">
-          
+        <div className="expanded-section">   
           <p className="details-section">Category: {thread.category}</p>
           <p className="details-section-description">{thread.description}</p>
           
+
           {localComments.length > 0 ? (
             <div className="comments-section">
               <h5>Comments:</h5>
               <ul>
                 {localComments.map((comment, index) => (
                   <li className="details-comment-section" key={index}>{comment}</li>
+
                 ))}
               </ul>
             </div>

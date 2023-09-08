@@ -59,7 +59,7 @@ const handleLogout = async () => {
           
           {/*user ? (
             <>
-              
+
               <button type="button" className="btn btn-secondary mr-1" onClick={handleSignOut}>
                 Sign Out
               </button>
