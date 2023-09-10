@@ -17,11 +17,6 @@ interface Thread {
   comments: string[];
 }
 
-interface AuthContextProps {
-  googleSignIn: () => void;
-  logOut: () => void;
-  user: User | null;
-}
 
 const AskForm: React.FC = () => {
   const authContext = useContext(AuthContext);

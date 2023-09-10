@@ -2,7 +2,6 @@ import { useContext, createContext, useEffect, useState, ReactNode } from 'react
 import {
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
   signOut,
   onAuthStateChanged,
   User,

@@ -16,10 +16,10 @@ const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <Form onSubmit={handleCommentSubmit}>
+    <Form id='comment-form-wrapper' onSubmit={handleCommentSubmit}>
       <Form.Group controlId="comment">
         <Form.Control
-          id='comment-form-input'
+          className='comment-form-input'
           as="textarea"
           name="comment"
           value={comment}
@@ -27,7 +27,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
           placeholder="Your comment"
         />
       </Form.Group>
-      <Button className='comment-form-btn' type="submit">
+      <Button className='comment-form-btn mx-3' type="submit">
         Submit
       </Button>
     </Form>

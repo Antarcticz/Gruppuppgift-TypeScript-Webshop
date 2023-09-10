@@ -13,66 +13,10 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
-  getDoc,
-  query,
-  where,
 } from "firebase/firestore";
+import { Thread } from "../../types";
 
-/*
-interface Thread {
-  id: number;
-  threadName: string;
-  title: string;
-  category: string;
-  creationDate: string;
-  description: string;
-  creator: User;
-  comments?: string[];
-}
-*/
 
-interface Thread {
-  title: string;
-  category: string;
-  creationDate: string;
-  description: string;
-  creator: {
-    uid: string;
-    displayName: string;
-  };
-}
-
-/*GET ALL*/
-/*
-async function getThreads(): Promise<Thread[]> {
-  try {
-    const threadCollectionRef = collection(db, "threads");
-    const threadSnapshot = await getDocs(threadCollectionRef);
-    const threads: Thread[] = [];
-    threadSnapshot.forEach((doc) => {
-      threads.push(doc.data() as Thread);
-    });
-    return threads;
-  } catch (error) {
-    console.error("Dosent work", error);
-    return [];
-  }
-}
-*/
-
-/*POST*/
-/*
-async function createThread(threadData: Thread): Promise<void> {
-  try {
-    const threadsCollectionRef = collection(db, "threads");
-    await addDoc(threadsCollectionRef, threadData);
-    console.log("Thread created successfully");
-  } catch (error) {
-    console.error("Error creating thread:", error);
-    throw error;
-  }
-}
-*/
 /*DELETE*/
 async function deleteThread(threadId: string): Promise<void> {
   try {
@@ -87,31 +31,21 @@ async function deleteThread(threadId: string): Promise<void> {
 
 
 /*ADD COMMENT*/
-async function addCommentToThread(threadId: string | number, comment: string): Promise<void> {
+async function addCommentToThread(threadId: string, comment: string): Promise<void> { // Ändra threadId till string
   console.log(`Thread ID: ${threadId}`);
   try {
-    const q = query(collection(db, "threads"), where("id", "==", threadId));
-    const querySnapshot = await getDocs(q);
+    const threadDocRef = doc(db, "threads", threadId); // Hämta direkt tråden med hjälp av dess ID
 
-    if (!querySnapshot.empty) {
-      const doc = querySnapshot.docs[0];
-      const threadDocRef = doc.ref;
-
-      // Update existing document
-      await updateDoc(threadDocRef, {
-        comments: arrayUnion(comment)
-      });
-      console.log('Comment added successfully');
-    } else {
-      // Throw an error if the document does not exist
-      throw new Error(`Thread with ID ${threadId} does not exist.`);
-    }
+    // Update existing document
+    await updateDoc(threadDocRef, {
+      comments: arrayUnion(comment)
+    });
+    console.log('Comment added successfully');
   } catch (error) {
     console.error('Error adding comment:', error);
     throw error;
   }
 }
-
 
 /*REMOVE COMMENT*/
 async function removeCommentFromThread(
@@ -130,26 +64,6 @@ async function removeCommentFromThread(
   }
 }
 
-/*GET COMMENTS*/
-/*
-async function getCommentsFromThread(threadId: string): Promise<string[]> {
-  try {
-    const threadDocRef = doc(db, "threads", threadId);
-    const threadDoc = await getDoc(threadDocRef);
-    if (threadDoc.exists()) {
-      const threadData = threadDoc.data() as Thread;
-      return threadData.comments || [];
-    } else {
-      console.error("Thread does not exist");
-      return [];
-    }
-  } catch (error) {
-    console.error("Error getting comments:", error);
-    return [];
-  }
-}
-*/
-
 /*GET THREADS*/
 const getThreads = async (): Promise<Thread[]> => {
   try {
@@ -159,6 +73,7 @@ const getThreads = async (): Promise<Thread[]> => {
     const threadsData: Thread[] = [];
     querySnapshot.forEach((doc) => {
       const thread = doc.data() as Thread;
+      thread.id = doc.id;
       threadsData.push(thread);
     });
 
@@ -197,11 +112,6 @@ const loginUser = async (email: string, password: string): Promise<UserCredentia
   }
 };
 
-/*createThread*/
-// threadService.ts
-
-// ... (other imports and configurations)
-
 async function createThread(threadData: Thread): Promise<void> {
   try {
     const user = auth.currentUser; // Get the currently authenticated user
@@ -236,7 +146,6 @@ const threadsService = {
   deleteThread,
   addCommentToThread,
   removeCommentFromThread,
-  //getCommentsFromThread,
 };
 
 export default threadsService;

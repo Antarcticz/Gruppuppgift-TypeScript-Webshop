@@ -1,11 +1,11 @@
-import React, { useState, useEffect, Key } from "react";
+import React, { useState, useEffect } from "react";
 import "./Card.css";
 import threadsService from '../../Forum/threads/threadService';
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useUserAuth } from "../../context/AuthContext";
 import CommentForm from "../CommentForm/CommentForm";
-
-
+import { nanoid } from 'nanoid'
+import { Thread } from "../../types";
 
 
 function formatDate(isoString: string): string {
@@ -20,13 +20,17 @@ function formatDate(isoString: string): string {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
+function ensureArray(value: string | string[]): string[] {
+  return Array.isArray(value) ? value : [];
+}
+
 const ThreadCard: React.FC<{ thread: Thread }> = ({ thread }) => {
   const { user } = useUserAuth();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [localComments, setLocalComments] = useState<string[]>(thread.comments || []);
+  const [localComments, setLocalComments] = useState<string[]>(ensureArray(thread.comments));
 
   useEffect(() => {
-    setLocalComments(thread.comments || []);
+    setLocalComments(ensureArray(thread.comments));
   }, [thread.comments]);
 
 
@@ -63,7 +67,8 @@ const ThreadCard: React.FC<{ thread: Thread }> = ({ thread }) => {
               <h5>Comments:</h5>
               <ul>
                 {localComments.map((comment, index) => (
-                  <li className="details-comment-section" key={index}>{user && user.displayName ? (
+                  <li className="details-comment-section" key={nanoid()}>
+                    {user && user.displayName ? (
                     <div>
                       <div className="d-flex justify-content-flex-start align-items-center pb-3">
                         {user.photoURL && (
@@ -74,7 +79,10 @@ const ThreadCard: React.FC<{ thread: Thread }> = ({ thread }) => {
                         {(user.displayName)}
                       </div>
                     </div>
-                  ) : null}{comment}</li>
+                  ) : null}
+                  {comment}
+                  <hr />
+                  </li>
                 ))}
               </ul>
             </div>

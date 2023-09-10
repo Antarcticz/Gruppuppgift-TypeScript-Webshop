@@ -1,15 +1,19 @@
-interface Thread {
-  uid:'';
-  id: number;
-    title: string;
-    category: string;
-    creationDate: string;
-    description: string;
-    creator: {
-        uid: string;
-        displayName: string;
+export interface Thread {
+  id?: Key | null | undefined;
+  title: string;
+  category: string;
+  creationDate: string;
+  description: string;
+  threadName?: string;
+  creator: {
+    uid: string;
+    displayName: string;
+    email?: string;
+    name?: string;
+    password?: string;
+    userName?: string;
   };
-  comments: string[];
+  comments: string[] | string; // Om 'comments' kan vara en sträng
 }
 
 interface QNAThread extends Thread {
@@ -17,3 +21,4 @@ interface QNAThread extends Thread {
     isAnswered: boolean;
     commentAnswerId?: number
 }
+

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import './Header.css';
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
-//import { UserAuth } from '../../context/AuthContext';
-import { auth } from '../../firebase/config';
+import React, { useEffect, useState } from "react";
+import "./Header.css";
+import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { auth } from "../../firebase/config";
 
 const RedditHeader: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,37 +14,19 @@ const RedditHeader: React.FC = () => {
         setIsLoggedIn(false);
       }
     });
-  return () => unsubscribe();
-}, []);  
+    return () => unsubscribe();
+  }, []);
 
-const handleLogout = async () => {
-  try {
-    await auth.signOut();
-    setIsLoggedIn(false);
-    console.log('User logged out successfully');
-  } catch (error) {
-    console.error('Logout error:', error);
-  }
-};
-/*
-  const { user, logOut, googleSignIn } = UserAuth();
-
-  const handleGoogleSignIn = async () => {
+  const handleLogout = async () => {
     try {
-      await googleSignIn();
+      await auth.signOut();
+      setIsLoggedIn(false);
+      console.log("User logged out successfully");
     } catch (error) {
-      console.log(error);
+      console.error("Logout error:", error);
     }
   };
 
-  const handleSignOut = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-*/
   return (
     <Navbar id="navbar" bg="dark" variant="dark" expand="lg">
       <Container>
@@ -56,29 +37,23 @@ const handleLogout = async () => {
             <Nav.Link href="/">Home / Threads</Nav.Link>
             <Nav.Link href="/ask">Ask Question</Nav.Link>
           </Nav>
-          
-          {/*user ? (
-            <>
-
-              <button type="button" className="btn btn-secondary mr-1" onClick={handleSignOut}>
-                Sign Out
-              </button>
-            </>
+          {isLoggedIn ? (
+            <Button
+              variant="info"
+              className="btn btn-secondary mr-1"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
           ) : (
-            <button type="button" className="btn btn-primary mr-1" onClick={handleGoogleSignIn}>
-              Sign in with Google
-            </button>
-          )*/}
-
-              {isLoggedIn ? (
-              <Button variant="info" className="btn btn-secondary mr-1" onClick={handleLogout}>
-                Logout
-              </Button>
-            ) : (
-              <Button variant="primary" className="btn btn-secondary mr-1" href="/signIn">
-                Login
-              </Button>
-            )}
+            <Button
+              variant="primary"
+              className="btn btn-secondary mr-1"
+              href="/signIn"
+            >
+              Login
+            </Button>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
