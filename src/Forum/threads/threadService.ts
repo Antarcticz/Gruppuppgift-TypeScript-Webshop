@@ -87,7 +87,7 @@ async function deleteThread(threadId: string): Promise<void> {
 
 
 /*ADD COMMENT*/
-async function addCommentToThread(threadId: number, comment: string): Promise<void> {
+async function addCommentToThread(threadId: string | number, comment: string): Promise<void> {
   console.log(`Thread ID: ${threadId}`);
   try {
     const q = query(collection(db, "threads"), where("id", "==", threadId));

@@ -10,16 +10,16 @@ const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
   const [comment, setComment] = useState('');
 
   const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
     onSubmit(comment);
     setComment('');
   };
 
   return (
-    <Form id='comment-form-wrapper' onSubmit={handleCommentSubmit}>
-      <Form.Group>
+    <Form onSubmit={handleCommentSubmit}>
+      <Form.Group controlId="comment">
         <Form.Control
-          className='comment-form-input'
+          id='comment-form-input'
           as="textarea"
           name="comment"
           value={comment}

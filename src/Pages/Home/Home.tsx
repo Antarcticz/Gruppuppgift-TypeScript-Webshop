@@ -1,11 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { Key, useEffect, useState } from 'react';
 import './Home.css';
 import threadsService from '../../Forum/threads/threadService';
 import SortingButton from '../../components/Sorting/SortingButton';
 import { useUserAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import ThreadCard from '../../components/Card/Card';
+import  ThreadCard  from '../../components/Card/Card';
+
+interface Thread {
+  uid:'';
+  id: number;
+    title: string;
+    category: string;
+    creationDate: string;
+    description: string;
+    creator: {
+        uid: string;
+        displayName: string;
+  };
+  comments: string[];
+}
+
+export interface Comment {
+  content: string;
+  // Add other properties of Comment as needed
+}
+
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -89,10 +109,10 @@ const Home = () => {
         </div>
       ) : sortedThreadList.length > 0 ? (
         sortedThreadList.map((thread) => (
-          <ThreadCard
-            key={thread.id}
-            thread={thread}
-          />
+
+          <ThreadCard key={thread.id} thread={thread} />
+
+          
         ))
       ) : (
         <div className="loading-message">Failed to load resources. Please try again later.</div>

@@ -1,5 +1,6 @@
 interface Thread {
-  id: Key | null | undefined;
+  uid:'';
+  id: number;
     title: string;
     category: string;
     creationDate: string;
