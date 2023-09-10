@@ -6,15 +6,6 @@ import { useUserAuth } from "../../context/AuthContext";
 import CommentForm from "../CommentForm/CommentForm";
 
 
-interface Thread {
-  id: number;
-  title: string;
-  category: string;
-  creationDate: string;
-  description: string;
-  creator: User;
-  comments?: string[];
-}
 
 
 function formatDate(isoString: string): string {

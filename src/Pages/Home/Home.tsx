@@ -7,19 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import  ThreadCard  from '../../components/Card/Card';
 
-interface Thread {
-  uid:'';
-  id: number;
-    title: string;
-    category: string;
-    creationDate: string;
-    description: string;
-    creator: {
-        uid: string;
-        displayName: string;
-  };
-  comments: string[];
-}
+
 
 export interface Comment {
   content: string;
